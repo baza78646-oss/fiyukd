@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гостиница Байкал</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1565C0;
+            --primary-light: #e3f2fd;
+            --accent: #E53935;
+            --text-main: #333333;
+            --text-light: #666666;
+            --bg-light: #f9f9f9;
+            --bg-white: #ffffff;
+            --dark: #1a1a2e;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-main);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #d32f2f;
+        }
+
+        /* Wavy Underline */
+        .wavy-underline {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .wavy-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 100%;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" preserveAspectRatio="none"><path d="M0,5 Q5,10 10,5 T20,5" fill="none" stroke="%231565C0" stroke-width="2"/></svg>') repeat-x;
+            background-size: 20px 10px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--bg-light);
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .logo svg {
+            margin-right: 10px;
+            width: 32px;
+            height: 32px;
+            fill: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: calc(100vh - var(--nav-height));
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* About */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .about-image {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .about-dots span {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .about-dots span:first-child {
+            opacity: 1;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 15px;
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 2;
+        }
+
+        .service-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .service-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Rooms */
+        .rooms-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .rooms-decoration {
+            flex: 0 0 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .rooms-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .room-card {
+            background: var(--bg-white);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            fill: var(--primary);
+        }
+
+        .room-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .room-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .room-features li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .room-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .room-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Reviews */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .review-card {
+            background: var(--bg-white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+
+        .reviewer-info h4 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .stars {
+            color: #FFD700;
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: #aaa;
+            text-align: right;
+        }
+
+        /* Contacts */
+        .contacts-wrapper {
+            display: flex;
+            background: var(--bg-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .contacts-info {
+            flex: 1;
+            background: var(--primary-light);
+            padding: 50px;
+        }
+
+        .contacts-map {
+            flex: 1;
+            min-height: 400px;
+        }
+
+        .contact-item {
+            margin-bottom: 25px;
+        }
+
+        .contact-item h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+        }
+
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--primary-light);
+        }
+
+        .footer-col p {
+            color: #bbb;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: white;
+        }
+
+        .footer-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 40px; }
+            .hero-content { padding-right: 0; margin-bottom: 40px; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .rooms-wrapper { flex-direction: column; }
+            .rooms-decoration { display: none; }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+            .contacts-wrapper { flex-direction: column; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-height);
+                left: 0;
+                width: 100%;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+            .nav-links.active { display: flex; }
+            .hamburger { display: flex; }
+            .nav-cta { display: none; }
+
+            .hero-title { font-size: 2.5rem; }
+            .about-content { flex-direction: column; }
+            .services-grid { grid-template-columns: 1fr; }
+            .rooms-grid { grid-template-columns: 1fr; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z" fill="none"/><path d="M7 13h10v-2H7v2zm0 4h10v-2H7v2zm0-8h10V7H7v2zm-2 12h14V5H5v16z"/></svg>
+                БАЙКАЛ
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О гостинице</a></li>
+                <li><a href="#services">Преимущества</a></li>
+                <li><a href="#rooms">Номера</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+            </ul>
+            <a href="#contacts" class="btn btn-outline nav-cta">Обратный звонок</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero container">
+        <div class="hero-content">
+            <h1 class="hero-title">ГОСТИНИЦА Байкал</h1>
+            <p class="hero-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <button class="btn btn-accent" onclick="document.getElementById('contacts').scrollIntoView({behavior: 'smooth'})">Забронировать</button>
+        </div>
+        <div class="hero-image">
+            <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Hotel Building Background -->
+                <rect x="250" y="50" width="120" height="200" fill="#e3f2fd" rx="10"/>
+                <rect x="260" y="70" width="30" height="30" fill="#90caf9" rx="4"/>
+                <rect x="300" y="70" width="30" height="30" fill="#90caf9" rx="4"/>
+                <rect x="260" y="120" width="30" height="30" fill="#90caf9" rx="4"/>
+                <rect x="300" y="120" width="30" height="30" fill="#90caf9" rx="4"/>
+                <rect x="260" y="170" width="30" height="30" fill="#90caf9" rx="4"/>
+                <rect x="300" y="170" width="30" height="30" fill="#90caf9" rx="4"/>
+                <!-- Smartphone UI -->
+                <rect x="80" y="20" width="160" height="260" fill="#1565C0" rx="20"/>
+                <rect x="90" y="30" width="140" height="240" fill="#ffffff" rx="15"/>
+                <rect x="100" y="50" width="120" height="80" fill="#bbdefb" rx="8"/>
+                <circle cx="160" cy="90" r="15" fill="#E53935"/>
+                <path d="M160 100 L155 85 L165 85 Z" fill="#E53935"/>
+                <circle cx="160" cy="85" r="5" fill="#ffffff"/>
+                <text x="100" y="150" font-family="Roboto" font-size="12" font-weight="bold" fill="#333">Гостиница Байкал</text>
+                <text x="100" y="170" font-family="Roboto" font-size="10" fill="#FFD700">★★★★★</text>
+                <rect x="100" y="190" width="120" height="25" fill="#E53935" rx="5"/>
+                <text x="160" y="206" font-family="Roboto" font-size="10" fill="#fff" text-anchor="middle">Бронь</text>
+                <!-- Travelers -->
+                <circle cx="210" cy="220" r="15" fill="#ffb74d"/>
+                <rect x="195" y="235" width="30" height="40" fill="#1565C0" rx="5"/>
+                <rect x="235" y="230" width="25" height="35" fill="#E53935" rx="4"/> <!-- Luggage -->
+                <rect x="242" y="215" width="10" height="15" fill="none" stroke="#333" stroke-width="3" rx="2"/>
+                <circle cx="280" cy="230" r="12" fill="#ffb74d"/>
+                <rect x="270" y="242" width="20" height="35" fill="#4caf50" rx="5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container about-content">
+            <div class="about-text">
+                <h2 class="section-title wavy-underline">О гостинице</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+                <p>Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus.</p>
+            </div>
+            <div class="about-image">
+                <svg width="350" height="250" viewBox="0 0 350 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Desk -->
+                    <rect x="50" y="150" width="250" height="60" fill="#1565C0" rx="5"/>
+                    <rect x="70" y="140" width="210" height="10" fill="#bbdefb" rx="2"/>
+                    <!-- Receptionist -->
+                    <circle cx="175" cy="90" r="18" fill="#ffb74d"/>
+                    <rect x="155" y="110" width="40" height="40" fill="#333" rx="8"/>
+                    <!-- Guest 1 -->
+                    <circle cx="80" cy="100" r="16" fill="#ffb74d"/>
+                    <rect x="65" y="118" width="30" height="60" fill="#E53935" rx="6"/>
+                    <!-- Guest 2 -->
+                    <circle cx="120" cy="105" r="14" fill="#ffb74d"/>
+                    <rect x="108" y="120" width="24" height="50" fill="#4caf50" rx="6"/>
+                    <!-- Background plants/decor -->
+                    <rect x="280" y="80" width="10" height="70" fill="#8d6e63"/>
+                    <circle cx="285" cy="70" r="25" fill="#81c784"/>
+                </svg>
+                <div class="about-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title wavy-underline text-center">Мы предлагаем</h2>
+            <div class="services-grid">
+                <!-- Row 1 -->
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 3C7.5 3 3.3 4.6.4 7.1l11.6 14.5 11.6-14.5C20.7 4.6 16.5 3 12 3zm0 4.5c2.8 0 5.4 1 7.6 2.7L12 19.8l-7.6-9.6c2.2-1.7 4.8-2.7 7.6-2.7z"/></svg>
+                    <h3 class="service-title">Бесплатный Wi-Fi</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.64-2.25 1.64-1.74 0-2.33-.89-2.41-1.76H7.73c.14 1.86 1.49 2.96 3.17 3.32V19h2.34v-1.66c1.64-.32 2.85-1.36 2.85-3 0-2.45-1.99-2.98-3.78-3.5z"/></svg>
+                    <h3 class="service-title">Круглосуточный дежурный</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
+                    <h3 class="service-title">Телевизор</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <!-- Row 2 -->
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.28l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5zM7.5 16c.83 0 1.5-.67 1.5-1.5S8.33 13 7.5 13 6 13.67 6 14.5 6.67 16 7.5 16zm9 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/></svg>
+                    <h3 class="service-title">Парковка</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M19.36 2.72L20.78 4.14L15.06 9.85C16.13 11.39 16.28 13.24 15.38 14.44L9.06 8.12C10.26 7.22 12.11 7.37 13.65 8.44L19.36 2.72M5.93 17.57C3.92 15.56 2.69 13.16 2.35 10.92L7.23 8.83L14.67 16.27L12.58 21.15C10.34 20.81 7.94 19.58 5.93 17.57Z"/></svg>
+                    <h3 class="service-title">Влажная уборка</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M7 7h10v2H7zm0 4h7v2H7zm-2 9h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2zm0-14h14v12H5V6z"/></svg>
+                    <h3 class="service-title">Ванно-прачечный комплекс</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <!-- Row 3 -->
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M18.1 14.8l-1.2-1.2c1.7-2 2.3-4.7 1.4-7.4-1.2-3.8-5.3-5.5-8.9-4-3.4 1.4-5 5.5-3.5 8.9.9 2.3 2.9 4 5.3 4.5l1.3 1.3c-2.4 1.8-5.7 1.8-8 .1l-1.4 1.4c3 2.4 7.1 2.3 10-.3l1.1 1.1-1.4 1.4 1.4 1.4 3.5-3.5-1.4-1.4-1.4 1.4-2.8-2.8zM9.5 11.2c-1.4-.6-2.1-2.2-1.5-3.6.6-1.4 2.2-2.1 3.6-1.5 1.4.6 2.1 2.2 1.5 3.6-.6 1.4-2.2 2.1-3.6 1.5z"/></svg>
+                    <h3 class="service-title">Собственная кухня</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM2 21h20v-2H2v2z"/></svg>
+                    <h3 class="service-title">Банкетный зал</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+                    <h3 class="service-title">Просторная столовая</h3>
+                    <p class="service-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms">
+        <div class="container">
+            <h2 class="section-title wavy-underline">Наши номера</h2>
+            <div class="rooms-wrapper">
+                <!-- Traveler Left -->
+                <div class="rooms-decoration">
+                    <svg width="80" height="150" viewBox="0 0 80 150">
+                        <circle cx="40" cy="30" r="15" fill="#ffb74d"/>
+                        <rect x="25" y="50" width="30" height="60" fill="#1565C0" rx="8"/>
+                        <rect x="30" y="110" width="8" height="40" fill="#333"/>
+                        <rect x="42" y="110" width="8" height="40" fill="#333"/>
+                    </svg>
+                </div>
+
+                <div class="rooms-grid">
+                    <!-- Card 1 -->
+                    <div class="room-card">
+                        <svg class="room-icon" viewBox="0 0 24 24">
+                            <path d="M20 10V7A2 2 0 0 0 18 5H6A2 2 0 0 0 4 7V10A2 2 0 0 0 2 12V17H4V19H5V17H19V19H20V17H22V12A2 2 0 0 0 20 10ZM13 7H18V10H13V7ZM6 7H11V10H6V7ZM20 15H4V12H20V15Z" />
+                        </svg>
+                        <h3 class="room-title">Одноместный номер</h3>
+                        <ul class="room-features">
+                            <li>Душ</li>
+                            <li>Кровать</li>
+                            <li>Телевизор</li>
+                            <li>Wi-Fi</li>
+                            <li>Чай/кофе</li>
+                            <li>Ежедневная уборка</li>
+                        </ul>
+                        <div class="room-price">1000₽ / сутки</div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="room-card">
+                        <svg class="room-icon" viewBox="0 0 24 24">
+                            <!-- Double bed icon -->
+                            <path d="M20 10V7A2 2 0 0 0 18 5H6A2 2 0 0 0 4 7V10A2 2 0 0 0 2 12V17H4V19H5V17H19V19H20V17H22V12A2 2 0 0 0 20 10ZM18 7V10H12.5V7H18ZM11.5 7V10H6V7H11.5ZM4 12H20V15H4V12Z"/>
+                            <rect x="7" y="7.5" width="3" height="2" fill="#1565C0" rx="1"/>
+                            <rect x="14" y="7.5" width="3" height="2" fill="#1565C0" rx="1"/>
+                        </svg>
+                        <h3 class="room-title">Двухместный номер</h3>
+                        <ul class="room-features">
+                            <li>Душ</li>
+                            <li>Двуспальная кровать</li>
+                            <li>Телевизор</li>
+                            <li>Wi-Fi</li>
+                            <li>Чай/кофе</li>
+                            <li>Ежедневная уборка</li>
+                        </ul>
+                        <div class="room-price">2000₽ / сутки</div>
+                    </div>
+                </div>
+
+                <!-- Traveler Right -->
+                <div class="rooms-decoration">
+                    <svg width="80" height="150" viewBox="0 0 80 150">
+                        <circle cx="40" cy="35" r="12" fill="#ffb74d"/>
+                        <rect x="28" y="52" width="24" height="55" fill="#E53935" rx="6"/>
+                        <rect x="32" y="107" width="6" height="35" fill="#333"/>
+                        <rect x="42" y="107" width="6" height="35" fill="#333"/>
+                        <rect x="15" y="70" width="20" height="30" fill="#4caf50" rx="4"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+        <div class="container">
+            <h2 class="section-title wavy-underline">Ваши отзывы</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">ИИ</div>
+                        <div class="reviewer-info">
+                            <h4>Иван Иванов</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id varius dolor. Sed in dui at mauris sollicitudin laoreet.</p>
+                    <div class="review-date">12 мая 2023</div>
+                </div>
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">МП</div>
+                        <div class="reviewer-info">
+                            <h4>Мария Петрова</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Отличная гостиница, приветливый персонал. В номерах чисто и уютно. Обязательно вернусь еще раз! Рекомендую всем.</p>
+                    <div class="review-date">05 июня 2023</div>
+                </div>
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">АС</div>
+                        <div class="reviewer-info">
+                            <h4>Алексей Смирнов</h4>
+                            <div class="stars">★★★★☆</div>
+                        </div>
+                    </div>
+                    <p class="review-text">В целом всё хорошо. За свои деньги это отличный вариант для ночевки. Интернет работает быстро, кровать мягкая.</p>
+                    <div class="review-date">21 июля 2023</div>
+                </div>
+                <div class="review-card">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">ЕК</div>
+                        <div class="reviewer-info">
+                            <h4>Елена Козлова</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Очень удобное расположение, легко найти. Есть где припарковаться. Завтраки сытные и вкусные. Спасибо за гостеприимство!</p>
+                    <div class="review-date">10 августа 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts">
+        <div class="container">
+            <div class="contacts-wrapper">
+                <div class="contacts-info">
+                    <h2 class="section-title wavy-underline">Контакты</h2>
+
+                    <div class="contact-item">
+                        <h4>Адрес:</h4>
+                        <p>Рабочая ул., 17, Яхта, Забайкальский край, Россия</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h4>Телефоны:</h4>
+                        <p>+7 (3022) 21-78-56</p>
+                        <p>+7 (929) 483-02-55</p>
+                    </div>
+
+                    <div class="social-icons">
+                        <a href="#" class="social-btn" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,6.8A5.2,5.2 0 1,1 6.8,12A5.2,5.2 0 0,1 12,6.8M12,8.8A3.2,3.2 0 1,0 15.2,12A3.2,3.2 0 0,0 12,8.8M17.5,5.4A1.1,1.1 0 1,1 16.4,6.5A1.1,1.1 0 0,1 17.5,5.4Z" /></svg>
+                        </a>
+                        <a href="#" class="social-btn" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.44 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.39C9.5 11.15 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.34C8.86 7.34 8.7 7.33 8.53 7.33Z" /></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="contacts-map">
+                    <!-- Embedded Google Map -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d154432.22625243178!2d113.33230635117978!3d52.03960017122114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5dcbbd425b77fb79%3A0xe5f9b45eefbbaad6!2sChita%2C%20Zabaykalsky%20Krai%2C%20Russia!5e0!3m2!1sen!2sus!4v1714498845663!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style="border:0; min-height: 400px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="color: white; margin-bottom: 20px;">
+                        <svg viewBox="0 0 24 24" style="fill: var(--primary-light)"><path d="M3 3h18v18H3z" fill="none"/><path d="M7 13h10v-2H7v2zm0 4h10v-2H7v2zm0-8h10V7H7v2zm-2 12h14V5H5v16z"/></svg>
+                        БАЙКАЛ
+                    </a>
+                    <p>Современная и уютная гостиница для комфортного проживания.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#about">О гостинице</a></li>
+                        <li><a href="#services">Преимущества</a></li>
+                        <li><a href="#rooms">Номера</a></li>
+                        <li><a href="#reviews">Отзывы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Быстрая связь</h4>
+                    <div class="footer-buttons">
+                        <button class="btn btn-accent" onclick="document.getElementById('contacts').scrollIntoView({behavior: 'smooth'})">Забронировать</button>
+                        <a href="#contacts" class="btn btn-outline" style="border-color: var(--primary-light); color: var(--primary-light);">Обратный звонок</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <p>Рабочая ул., 17, Яхта</p>
+                    <p>+7 (3022) 21-78-56</p>
+                    <p>+7 (929) 483-02-55</p>
+                    <div class="social-icons" style="margin-top: 15px;">
+                        <a href="#" class="social-btn" style="width: 35px; height: 35px;"><svg viewBox="0 0 24 24" style="width: 16px;"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,6.8A5.2,5.2 0 1,1 6.8,12A5.2,5.2 0 0,1 12,6.8M12,8.8A3.2,3.2 0 1,0 15.2,12A3.2,3.2 0 0,0 12,8.8M17.5,5.4A1.1,1.1 0 1,1 16.4,6.5A1.1,1.1 0 0,1 17.5,5.4Z" /></svg></a>
+                        <a href="#" class="social-btn" style="width: 35px; height: 35px;"><svg viewBox="0 0 24 24" style="width: 16px;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.44 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.39C9.5 11.15 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.34C8.86 7.34 8.7 7.33 8.53 7.33Z" /></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2023 Гостиница Байкал. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
