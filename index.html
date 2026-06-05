@@ -5,579 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Гостиница Байкал</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1565C0;
-            --primary-light: #e3f2fd;
-            --accent: #E53935;
-            --text-main: #333333;
-            --text-light: #666666;
-            --bg-light: #f9f9f9;
-            --bg-white: #ffffff;
-            --dark: #1a1a2e;
-            --nav-height: 80px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            color: var(--text-main);
-            background-color: var(--bg-white);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 10px 24px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            border: 2px solid transparent;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-accent:hover {
-            background: #d32f2f;
-        }
-
-        /* Wavy Underline */
-        .wavy-underline {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 40px;
-        }
-
-        .wavy-underline::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -15px;
-            width: 100%;
-            height: 10px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" preserveAspectRatio="none"><path d="M0,5 Q5,10 10,5 T20,5" fill="none" stroke="%231565C0" stroke-width="2"/></svg>') repeat-x;
-            background-size: 20px 10px;
-        }
-
-        section {
-            padding: 80px 0;
-        }
-
-        section:nth-child(even) {
-            background-color: var(--bg-light);
-        }
-
-        /* Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--nav-height);
-            background: var(--bg-white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-        }
-
-        .logo svg {
-            margin-right: 10px;
-            width: 32px;
-            height: 32px;
-            fill: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--primary);
-            transition: all 0.3s;
-        }
-
-        /* Hero */
-        .hero {
-            margin-top: var(--nav-height);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: calc(100vh - var(--nav-height));
-        }
-
-        .hero-content {
-            flex: 1;
-            padding-right: 40px;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero-text {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 30px;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* About */
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: var(--text-light);
-        }
-
-        .about-image {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .about-dots {
-            display: flex;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .about-dots span {
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            opacity: 0.5;
-        }
-
-        .about-dots span:first-child {
-            opacity: 1;
-        }
-
-        /* Services */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .service-card {
-            background: var(--bg-white);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 15px;
-            fill: none;
-            stroke: var(--primary);
-            stroke-width: 2;
-        }
-
-        .service-title {
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        .service-desc {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        /* Rooms */
-        .rooms-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .rooms-decoration {
-            flex: 0 0 100px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .rooms-grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .room-card {
-            background: var(--bg-white);
-            border: 2px solid var(--primary);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .room-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            fill: var(--primary);
-        }
-
-        .room-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .room-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 20px;
-            color: var(--text-light);
-        }
-
-        .room-features li {
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .room-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .room-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        /* Reviews */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .review-card {
-            background: var(--bg-white);
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .reviewer {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            gap: 15px;
-        }
-
-        .reviewer-avatar {
-            width: 50px;
-            height: 50px;
-            background: #e0e0e0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-        }
-
-        .reviewer-info h4 {
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        .stars {
-            color: #FFD700;
-            font-size: 0.9rem;
-        }
-
-        .review-text {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            flex-grow: 1;
-            margin-bottom: 15px;
-        }
-
-        .review-date {
-            font-size: 0.8rem;
-            color: #aaa;
-            text-align: right;
-        }
-
-        /* Contacts */
-        .contacts-wrapper {
-            display: flex;
-            background: var(--bg-white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-
-        .contacts-info {
-            flex: 1;
-            background: var(--primary-light);
-            padding: 50px;
-        }
-
-        .contacts-map {
-            flex: 1;
-            min-height: 400px;
-        }
-
-        .contact-item {
-            margin-bottom: 25px;
-        }
-
-        .contact-item h4 {
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .contact-item p {
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: transform 0.3s;
-        }
-
-        .social-btn:hover {
-            transform: scale(1.1);
-            background: var(--accent);
-        }
-
-        .social-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            color: var(--primary-light);
-        }
-
-        .footer-col p {
-            color: #bbb;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-col ul a:hover {
-            color: white;
-        }
-
-        .footer-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: flex-start;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 992px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 40px; }
-            .hero-content { padding-right: 0; margin-bottom: 40px; }
-            .services-grid { grid-template-columns: repeat(2, 1fr); }
-            .rooms-wrapper { flex-direction: column; }
-            .rooms-decoration { display: none; }
-            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-            .contacts-wrapper { flex-direction: column; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: var(--nav-height);
-                left: 0;
-                width: 100%;
-                background: var(--bg-white);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-                text-align: center;
-            }
-            .nav-links.active { display: flex; }
-            .hamburger { display: flex; }
-            .nav-cta { display: none; }
-
-            .hero-title { font-size: 2.5rem; }
-            .about-content { flex-direction: column; }
-            .services-grid { grid-template-columns: 1fr; }
-            .rooms-grid { grid-template-columns: 1fr; }
-            .reviews-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: var(--primary);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -596,7 +24,7 @@
                 <li><a href="#reviews">Отзывы</a></li>
             </ul>
             <a href="#contacts" class="btn btn-outline nav-cta">Обратный звонок</a>
-            <div class="hamburger" onclick="toggleMenu()">
+            <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -609,37 +37,10 @@
         <div class="hero-content">
             <h1 class="hero-title">ГОСТИНИЦА Байкал</h1>
             <p class="hero-text">Гостиница «Байкал» — уютное место для комфортного отдыха и деловых поездок. Мы предлагаем высокий уровень сервиса, чистые номера и домашнюю атмосферу по доступным ценам.</p>
-            <button class="btn btn-accent" onclick="document.getElementById('contacts').scrollIntoView({behavior: 'smooth'})">Забронировать</button>
+            <button class="btn btn-accent" data-scroll="#contacts">Забронировать</button>
         </div>
         <div class="hero-image">
-            <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                <!-- Hotel Building Background -->
-                <rect x="250" y="50" width="120" height="200" fill="#e3f2fd" rx="10"/>
-                <rect x="260" y="70" width="30" height="30" fill="#90caf9" rx="4"/>
-                <rect x="300" y="70" width="30" height="30" fill="#90caf9" rx="4"/>
-                <rect x="260" y="120" width="30" height="30" fill="#90caf9" rx="4"/>
-                <rect x="300" y="120" width="30" height="30" fill="#90caf9" rx="4"/>
-                <rect x="260" y="170" width="30" height="30" fill="#90caf9" rx="4"/>
-                <rect x="300" y="170" width="30" height="30" fill="#90caf9" rx="4"/>
-                <!-- Smartphone UI -->
-                <rect x="80" y="20" width="160" height="260" fill="#1565C0" rx="20"/>
-                <rect x="90" y="30" width="140" height="240" fill="#ffffff" rx="15"/>
-                <rect x="100" y="50" width="120" height="80" fill="#bbdefb" rx="8"/>
-                <circle cx="160" cy="90" r="15" fill="#E53935"/>
-                <path d="M160 100 L155 85 L165 85 Z" fill="#E53935"/>
-                <circle cx="160" cy="85" r="5" fill="#ffffff"/>
-                <text x="100" y="150" font-family="Roboto" font-size="12" font-weight="bold" fill="#333">Гостиница Байкал</text>
-                <text x="100" y="170" font-family="Roboto" font-size="10" fill="#FFD700">★★★★★</text>
-                <rect x="100" y="190" width="120" height="25" fill="#E53935" rx="5"/>
-                <text x="160" y="206" font-family="Roboto" font-size="10" fill="#fff" text-anchor="middle">Бронь</text>
-                <!-- Travelers -->
-                <circle cx="210" cy="220" r="15" fill="#ffb74d"/>
-                <rect x="195" y="235" width="30" height="40" fill="#1565C0" rx="5"/>
-                <rect x="235" y="230" width="25" height="35" fill="#E53935" rx="4"/> <!-- Luggage -->
-                <rect x="242" y="215" width="10" height="15" fill="none" stroke="#333" stroke-width="3" rx="2"/>
-                <circle cx="280" cy="230" r="12" fill="#ffb74d"/>
-                <rect x="270" y="242" width="20" height="35" fill="#4caf50" rx="5"/>
-            </svg>
+            <img src="images/hero-bg.jpg" alt="Гостиница Байкал">
         </div>
     </section>
 
@@ -811,7 +212,7 @@
             <div class="reviews-grid">
                 <div class="review-card">
                     <div class="reviewer">
-                        <div class="reviewer-avatar">ИИ</div>
+                        <img src="images/person-1.jpg" class="reviewer-avatar" alt="Иван Иванов">
                         <div class="reviewer-info">
                             <h4>Иван Иванов</h4>
                             <div class="stars">★★★★★</div>
@@ -822,7 +223,7 @@
                 </div>
                 <div class="review-card">
                     <div class="reviewer">
-                        <div class="reviewer-avatar">МП</div>
+                        <img src="images/person-2.jpg" class="reviewer-avatar" alt="Мария Петрова">
                         <div class="reviewer-info">
                             <h4>Мария Петрова</h4>
                             <div class="stars">★★★★★</div>
@@ -888,9 +289,7 @@
                     <!-- Embedded Google Map -->
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d154432.22625243178!2d113.33230635117978!3d52.03960017122114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5dcbbd425b77fb79%3A0xe5f9b45eefbbaad6!2sChita%2C%20Zabaykalsky%20Krai%2C%20Russia!5e0!3m2!1sen!2sus!4v1714498845663!5m2!1sen!2sus"
-                        width="100%"
-                        height="100%"
-                        style="border:0; min-height: 400px;"
+                        class="map-iframe"
                         allowfullscreen=""
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade">
@@ -905,8 +304,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <a href="#" class="logo" style="color: white; margin-bottom: 20px;">
-                        <svg viewBox="0 0 24 24" style="fill: var(--primary-light)"><path d="M3 3h18v18H3z" fill="none"/><path d="M7 13h10v-2H7v2zm0 4h10v-2H7v2zm0-8h10V7H7v2zm-2 12h14V5H5v16z"/></svg>
+                    <a href="#" class="logo footer-logo">
+                        <svg viewBox="0 0 24 24" class="footer-logo-svg"><path d="M3 3h18v18H3z" fill="none"/><path d="M7 13h10v-2H7v2zm0 4h10v-2H7v2zm0-8h10V7H7v2zm-2 12h14V5H5v16z"/></svg>
                         БАЙКАЛ
                     </a>
                     <p>Современная и уютная гостиница для комфортного проживания.</p>
@@ -924,8 +323,8 @@
                 <div class="footer-col">
                     <h4>Быстрая связь</h4>
                     <div class="footer-buttons">
-                        <button class="btn btn-accent" onclick="document.getElementById('contacts').scrollIntoView({behavior: 'smooth'})">Забронировать</button>
-                        <a href="#contacts" class="btn btn-outline" style="border-color: var(--primary-light); color: var(--primary-light);">Обратный звонок</a>
+                        <button class="btn btn-accent" data-scroll="#contacts">Забронировать</button>
+                        <a href="#contacts" class="btn btn-outline footer-btn-outline">Обратный звонок</a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -933,9 +332,9 @@
                     <p>Рабочая ул., 17, Яхта</p>
                     <p>+7 (3022) 21-78-56</p>
                     <p>+7 (929) 483-02-55</p>
-                    <div class="social-icons" style="margin-top: 15px;">
-                        <a href="#" class="social-btn" style="width: 35px; height: 35px;"><svg viewBox="0 0 24 24" style="width: 16px;"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,6.8A5.2,5.2 0 1,1 6.8,12A5.2,5.2 0 0,1 12,6.8M12,8.8A3.2,3.2 0 1,0 15.2,12A3.2,3.2 0 0,0 12,8.8M17.5,5.4A1.1,1.1 0 1,1 16.4,6.5A1.1,1.1 0 0,1 17.5,5.4Z" /></svg></a>
-                        <a href="#" class="social-btn" style="width: 35px; height: 35px;"><svg viewBox="0 0 24 24" style="width: 16px;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.44 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.39C9.5 11.15 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.34C8.86 7.34 8.7 7.33 8.53 7.33Z" /></svg></a>
+                    <div class="social-icons footer-social-icons">
+                        <a href="#" class="social-btn footer-social-btn"><svg viewBox="0 0 24 24" class="footer-social-svg"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,6.8A5.2,5.2 0 1,1 6.8,12A5.2,5.2 0 0,1 12,6.8M12,8.8A3.2,3.2 0 1,0 15.2,12A3.2,3.2 0 0,0 12,8.8M17.5,5.4A1.1,1.1 0 1,1 16.4,6.5A1.1,1.1 0 0,1 17.5,5.4Z" /></svg></a>
+                        <a href="#" class="social-btn footer-social-btn"><svg viewBox="0 0 24 24" class="footer-social-svg"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.44 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.39C9.5 11.15 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.34C8.86 7.34 8.7 7.33 8.53 7.33Z" /></svg></a>
                     </div>
                 </div>
             </div>
@@ -945,19 +344,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script>
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
-            });
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
